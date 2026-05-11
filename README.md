@@ -2,7 +2,7 @@
 
 Advisor Machine turns a fuzzy question into a council of isolated advisor
 agents, then preserves the transcript and final memo. This repo currently
-contains the Phase 0 command scaffold for `/council`.
+contains the Phase 0 vertical pipeline for `/council`.
 
 ## Quick Start
 
@@ -19,7 +19,19 @@ Or use the script launcher:
 ```
 
 The command creates a draft council skeleton under `.advisor_machine/councils/`
-and prints the eventual vault memo target under `~/ADSB/Council/`.
+then runs one intake, advisor, synth, and scribe pass. It writes the final memo
+into the council directory and copies the vault memo to `~/ADSB/Council/`.
+
+For non-interactive runs, provide intake answers and approve the lineup:
+
+```bash
+PYTHONPATH=src python3 -m advisor_machine.council \
+  --answer "Decision memo." \
+  --answer "12 people, $3M ARR, mostly engineers." \
+  --answer "Find the cheapest test before hiring." \
+  --yes \
+  "Should I hire a COO?"
+```
 
 ## Slash Command
 

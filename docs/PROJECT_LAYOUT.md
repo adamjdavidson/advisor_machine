@@ -1,7 +1,7 @@
 # Advisor Machine Project Layout
 
 Advisor Machine v1 starts with a small command surface and a stable place for
-future orchestration code to write council artifacts.
+Phase 0 orchestration code to write council artifacts.
 
 ## Command Surface
 
@@ -9,7 +9,7 @@ future orchestration code to write council artifacts.
 | --- | --- |
 | `.claude/commands/council.md` | Claude slash-command shim for `/council` in a Mayor-style session. |
 | `scripts/council` | Local launcher for the same command surface. |
-| `src/advisor_machine/council.py` | Python stdlib CLI and skeleton artifact writer. |
+| `src/advisor_machine/council.py` | Python stdlib CLI and Phase 0 pipeline runner. |
 
 The direct local invocation is:
 
@@ -34,7 +34,7 @@ variable if the repo lives somewhere else.
 | Path | Purpose |
 | --- | --- |
 | `src/advisor_machine/__init__.py` | Package marker and version. |
-| `src/advisor_machine/council.py` | `/council` Phase 0 skeleton implementation. |
+| `src/advisor_machine/council.py` | `/council` Phase 0 intake, advisor, synth, and scribe implementation. |
 | `src/advisor_machine/personas/*.md` | Version-controlled advisor persona library. |
 | `tests/test_council_skeleton.py` | Command and artifact-layout tests. |
 
@@ -51,15 +51,19 @@ Runtime state is intentionally ignored by git.
         +-- 02-lineup.md
         +-- advisors/
         |   +-- round-1/
-        |       +-- .gitkeep
+        |       +-- prompts/
+        |       |   +-- optimist.prompt.md
+        |       +-- optimist.md
+        |       +-- retry-policy.md
         +-- synth/
-        |   +-- .gitkeep
+        |   +-- round-1.md
         +-- 99-memo.md
 ```
 
 The default vault target is `~/ADSB/Council/YYYY-MM-DD-<slug>.md`. The Phase 0
-command reports that path but does not write to the vault; the scribe bead will
-own vault writes.
+scribe writes the same memo to the council directory and to the vault path. If
+the vault write fails, the council memo still exists and the command reports the
+vault failure.
 
 Environment overrides:
 

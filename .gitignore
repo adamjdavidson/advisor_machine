@@ -1,2 +1,7 @@
+.advisor_machine/
 .runtime/
+.pytest_cache/
+.venv/
 CLAUDE.md
+__pycache__/
+*.py[cod]
